@@ -39,4 +39,22 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-jib.to.image = "alekseinovikov/akaes"
+jib {
+    from {
+        image = "openjdk:alpine"
+        platforms {
+            platform {
+                architecture = "amd64"
+                os = "linux"
+            }
+            platform {
+                architecture = "arm64"
+                os = "linux"
+            }
+        }
+    }
+    to {
+        image = "alekseinovikov/akaes"
+        tags = setOf(project.version.toString(), "latest")
+    }
+}

@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
   name: akaes
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: akaes
@@ -16,10 +16,11 @@ spec:
     spec:
       containers:
         - name: akaes
-          image: alekseinovikov/akaes
+          image: alekseinovikov/akaes:0.0.1-SNAPSHOT
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+              protocol: TCP
               name: web
 ---
 
@@ -31,11 +32,11 @@ metadata:
   name: "akaes-service"
 spec:
   ports:
-    - name: web
-      port: 8080
+    - port: 8080
+      protocol: TCP
   selector:
     app: akaes
-  clusterIP: None
+  type: NodePort
 
 ---
 
@@ -44,10 +45,11 @@ kind: Ingress
 metadata:
   name: akaes-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-    - http:
+    - host: localhost
+      http:
         paths:
           - path: /
             pathType: Prefix
