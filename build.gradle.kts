@@ -44,10 +44,6 @@ jib {
         image = "openjdk:alpine"
         platforms {
             platform {
-                architecture = "amd64"
-                os = "linux"
-            }
-            platform {
                 architecture = "arm64"
                 os = "linux"
             }
@@ -55,6 +51,6 @@ jib {
     }
     to {
         image = "alekseinovikov/akaes"
-        tags = setOf(project.version.toString(), "latest")
+        tags = setOf(project.version.toString(), "latest", "arm64")
     }
 }

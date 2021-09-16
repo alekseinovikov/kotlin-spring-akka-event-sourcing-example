@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: akaes
-          image: alekseinovikov/akaes:0.0.1-SNAPSHOT
+          image: alekseinovikov/akaes:arm64
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
