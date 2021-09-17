@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class KotlinSpringAkkaEventSourcingExampleApplication
+class AkaesApplication
 
 fun main(args: Array<String>) {
-    runApplication<KotlinSpringAkkaEventSourcingExampleApplication>(*args)
+    runApplication<AkaesApplication>(*args)
 }

@@ -41,16 +41,20 @@ tasks.withType<Test> {
 
 jib {
     from {
-        image = "openjdk:alpine"
         platforms {
             platform {
                 architecture = "arm64"
+                os = "linux"
+            }
+
+            platform {
+                architecture = "amd64"
                 os = "linux"
             }
         }
     }
     to {
         image = "alekseinovikov/akaes"
-        tags = setOf(project.version.toString(), "latest", "arm64")
+        tags = setOf(project.version.toString(), "latest")
     }
 }
