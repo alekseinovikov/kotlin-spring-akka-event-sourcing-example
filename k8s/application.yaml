@@ -20,7 +20,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: SPRING_RABBITMQ_HOST
-              value: "rabbitmq"
+              value: "rabbitmq-service"
           ports:
             - containerPort: 8080
               protocol: TCP
