@@ -1,12 +1,13 @@
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: rabbitmq-service
+  labels:
+    app: rabbitmq-service
+  name: "rabbitmq-service"
 spec:
-  clusterIP: None  # We need a headless service to allow the pods to discover each
-  ports:           # other during autodiscover phase for cluster creation.
-    - name: http    # A ClusterIP will prevent resolving dns requests for other pods
-      protocol: TCP # under the same service.
+  ports:
+    - name: http
+      protocol: TCP
       port: 15672
       targetPort: 15672
     - name: amqp
@@ -15,6 +16,7 @@ spec:
       targetPort: 5672
   selector:
     app: rabbitmq
+  type: NodePort
 ---
 
 apiVersion: apps/v1
@@ -23,7 +25,7 @@ metadata:
   name: rabbitmq
 spec:
   replicas: 1
-  serviceName: rabbitmq
+  serviceName: rabbitmq-service
   selector:
     matchLabels:
       app: rabbitmq
