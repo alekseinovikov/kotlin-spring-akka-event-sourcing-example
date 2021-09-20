@@ -20,7 +20,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: SPRING_RABBITMQ_HOST
-              value: "rabbitmq-service.es"
+              value: "rabbitmq-service"
             - name: SPRING_RABBITMQ_PORT
               value: "5672"
           ports:
