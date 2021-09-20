@@ -66,7 +66,7 @@ kind: IngressClass
 metadata:
   name: external-lb
 spec:
-  controller: alekseinovikov-ip
+  controller: alekseinovikov-ip/external-lb
   parameters:
     apiGroup: alekseinovikov-ip
     kind: IngressParameters
