@@ -56,6 +56,6 @@ jib {
     }
     to {
         image = "alekseinovikov/akaes"
-        tags = setOf(project.version.toString(), "latest")
+        tags = setOf(project.version.toString(), "latest", "test1")
     }
 }

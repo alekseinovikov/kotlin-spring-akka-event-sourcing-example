@@ -16,8 +16,11 @@ spec:
     spec:
       containers:
         - name: akaes
-          image: alekseinovikov/akaes
+          image: alekseinovikov/akaes:test1
           imagePullPolicy: Always
+          env:
+            - name: SPRING_RABBITMQ_HOST
+              value: "rabbitmq"
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -52,3 +55,7 @@ spec:
             backend:
               serviceName: akaes-service
               servicePort: 8080
+          - path: /rabbitmq
+            backend:
+              serviceName: rabbitmq-service
+              servicePort: 15672

@@ -1,0 +1,54 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: rabbitmq-service
+spec:
+  clusterIP: None  # We need a headless service to allow the pods to discover each
+  ports:           # other during autodiscover phase for cluster creation.
+    - name: http    # A ClusterIP will prevent resolving dns requests for other pods
+      protocol: TCP # under the same service.
+      port: 15672
+      targetPort: 15672
+    - name: amqp
+      protocol: TCP
+      port: 5672
+      targetPort: 5672
+  selector:
+    app: rabbitmq
+---
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  name: rabbitmq
+spec:
+  serviceName: rabbitmq
+  replicas: 1
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:3-management
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              protocol: TCP
+              containerPort: 15672
+            - name: amqp
+              protocol: TCP
+              containerPort: 5672
+  volumeClaimTemplates:
+    - metadata:
+        name: rabbitmq-persistent-storage
+        annotations:
+          volume.beta.kubernetes.io/storage-class: standard
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
