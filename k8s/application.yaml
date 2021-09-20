@@ -58,3 +58,16 @@ spec:
                 name: akaes-service
                 port:
                   number: 8080
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: external-lb
+spec:
+  controller: alekseinovikov-ip
+  parameters:
+    apiGroup: alekseinovikov-ip
+    kind: IngressParameters
+    name: external-lb
