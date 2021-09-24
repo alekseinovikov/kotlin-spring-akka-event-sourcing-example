@@ -42,22 +42,3 @@ spec:
   selector:
     app: akaes
   type: NodePort
-
----
-
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
-metadata:
-  name: akaes-ingress
-spec:
-  rules:
-    - http:
-        paths:
-          - path: /
-            backend:
-              serviceName: akaes-service
-              servicePort: 8080
-          - path: /rabbitmq
-            backend:
-              serviceName: rabbitmq-service
-              servicePort: 15672
