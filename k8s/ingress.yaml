@@ -2,16 +2,17 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: akaes-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
 spec:
   rules:
-    - host: alekseinovikov-pi
-      http:
+    - http:
         paths:
           - path: /
             backend:
               serviceName: akaes-service
               servicePort: 8080
-          - path: /rabbitmq
+          - path: /rabbitmq/(.*)
             backend:
               serviceName: rabbitmq-service
               servicePort: 15672
