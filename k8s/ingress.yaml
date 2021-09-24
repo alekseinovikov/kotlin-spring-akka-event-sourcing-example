@@ -11,10 +11,7 @@ spec:
             backend:
               serviceName: akaes-service
               servicePort: 8080
-    - host: rabbitmq.alekseinovikov-pi
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: rabbitmq-service
-              servicePort: 15672
+          - path: /rabbitmq
+              backend:
+                serviceName: rabbitmq-service
+                servicePort: 15672
