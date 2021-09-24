@@ -12,6 +12,6 @@ spec:
               serviceName: akaes-service
               servicePort: 8080
           - path: /rabbitmq
-              backend:
-                serviceName: rabbitmq-service
-                servicePort: 15672
+            backend:
+              serviceName: rabbitmq-service
+              servicePort: 15672
