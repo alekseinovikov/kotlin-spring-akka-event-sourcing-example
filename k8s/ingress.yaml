@@ -25,7 +25,7 @@ spec:
     - host: alekseinovikov-pi
       http:
         paths:
-          - path: /rabbitmq(.*)
+          - path: /rabbitmq/(.*)
             backend:
               serviceName: rabbitmq-service
               servicePort: 15672
