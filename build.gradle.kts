@@ -60,6 +60,6 @@ jib {
             password = System.getenv("DOCKER_HUB_PASSWORD")
         }
         image = "alekseinovikov/akaes"
-        tags = setOf(System.getenv("TAG_NAME"), "latest")
+        tags = setOf(System.getenv("TAG_NAME")?: "develop", "latest")
     }
 }
