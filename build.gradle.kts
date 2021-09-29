@@ -60,6 +60,9 @@ jib {
             password = System.getenv("DOCKER_HUB_PASSWORD")
         }
         image = "alekseinovikov/akaes"
-        tags = setOf(System.getenv("TAG_NAME")?: "develop", "latest")
+
+        val tagNameEnv = System.getenv("TAG_NAME")
+        val releaseTag = if (tagNameEnv.isNullOrBlank()) "develop" else tagNameEnv
+        tags = setOf(releaseTag, "latest")
     }
 }
