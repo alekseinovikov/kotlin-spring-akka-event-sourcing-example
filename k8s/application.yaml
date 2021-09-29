@@ -27,6 +27,10 @@ spec:
             - containerPort: 8080
               protocol: TCP
               name: web
+            - containerPort: 8558
+              name: management
+            - containerPort: 2552
+              name: remoting
 ---
 
 apiVersion: v1
@@ -37,7 +41,16 @@ metadata:
   name: "akaes-service"
 spec:
   ports:
-    - port: 8080
+    - name: web
+      port: 8080
+      protocol: TCP
+    - name: management
+      port: 8558
+      targetPort: 8558
+      protocol: TCP
+    - name: remoting
+      port: 2552
+      targetPort: 2552
       protocol: TCP
   selector:
     app: akaes
