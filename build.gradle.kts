@@ -55,7 +55,11 @@ jib {
         }
     }
     to {
+        auth {
+            username = System.getenv("DOCKER_HUB_USER_NAME")
+            password = System.getenv("DOCKER_HUB_PASSWORD")
+        }
         image = "alekseinovikov/akaes"
-        tags = setOf(project.version.toString(), "latest", "test2")
+        tags = setOf(System.getenv("TAG_NAME"), "latest")
     }
 }
