@@ -7,6 +7,7 @@ import akka.management.cluster.bootstrap.ClusterBootstrap
 import akka.management.javadsl.AkkaManagement
 import akka.persistence.jdbc.testkit.javadsl.SchemaUtils
 import akka.persistence.typed.PersistenceId
+import kotlinx.coroutines.reactor.awaitSingle
 import me.alekseinovikov.akaes.actor.ClassActor
 import me.alekseinovikov.akaes.message.StudentActionMessage
 import me.alekseinovikov.akaes.message.StudentActionType
@@ -17,6 +18,7 @@ import me.alekseinovikov.akaes.model.GetAllStudentsCommand
 import me.alekseinovikov.akaes.props.EventSourcingProperties
 import org.springframework.core.env.Environment
 import org.springframework.stereotype.Component
+import reactor.kotlin.core.publisher.toMono
 import java.time.Duration
 import java.util.concurrent.CompletionStage
 import javax.annotation.PostConstruct
@@ -58,10 +60,10 @@ class ClassServiceImpl(
         StudentActionType.DELETE -> action.className.entityRef().tell(DeleteStudentCommand(action.studentName))
     }.also { classes.add(action.className) }
 
-    override fun getCurrentStates(): List<ClassState> = classes
+    override suspend fun getCurrentStates(): List<ClassState> = classes
         .map<String, CompletionStage<ClassState>> { className -> className.entityRef().ask({ replyTo -> GetAllStudentsCommand(replyTo) }, askDuration) }
         .map { it.toCompletableFuture() }
-        .map { it.get() }
+        .map { it.toMono().awaitSingle() }
 
     private fun String.entityRef() = sharding.entityRefFor(ClassActor.ENTITY_TYPE_KEY, this)
 
