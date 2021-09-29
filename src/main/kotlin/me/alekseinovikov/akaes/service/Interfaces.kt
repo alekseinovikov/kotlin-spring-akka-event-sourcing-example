@@ -5,5 +5,5 @@ import me.alekseinovikov.akaes.model.ClassState
 
 interface ClassService {
     fun applyStudentAction(action: StudentActionMessage)
-    fun getCurrentStates(): List<ClassState>
+    suspend fun getCurrentStates(): List<ClassState>
 }
