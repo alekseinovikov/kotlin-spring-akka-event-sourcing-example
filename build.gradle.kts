@@ -62,7 +62,6 @@ jib {
         image = "alekseinovikov/akaes"
 
         val tagNameEnv = System.getenv("TAG_NAME")
-        val releaseTag = if (tagNameEnv.isNullOrBlank()) "develop" else tagNameEnv
-        tags = setOf(releaseTag, "latest")
+        tags = if (tagNameEnv.isNullOrBlank()) setOf("develop") else setOf(tagNameEnv, "latest")
     }
 }
